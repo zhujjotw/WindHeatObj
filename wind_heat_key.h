@@ -10,6 +10,7 @@ enum
 };
 
 
+/* 输入是业务级的，定义一套输入类/方法 */
 
 typedef enum tagWindHeatKeyState
 {

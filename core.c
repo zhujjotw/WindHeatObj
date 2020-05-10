@@ -1,12 +1,9 @@
 /**
  *1、提供中断注册机制
- *2、mould注册机制，使用数组
- *
  */
 
-#define MAX_INTR_UNIT      16
-
-typedef SOFTWARE_INTR_HANDL_FN  VOID(*pfn)();
+#define MAX_INTR_UNIT      4
+typedef SOFTWARE_INTR_HANDL  VOID(*pfn)();
 
 //中断源
 typedef enum tagInterrputSrc
@@ -28,7 +25,7 @@ typedef struct tagInterrputTable
 	BOOL_T bHappen;
 
 	//软中断绑定
-	SOFTWARE_INTR_HANDL_FN CoreIntrFn;
+	SOFTWARE_INTR_HANDL CoreIntrFn;
 
 }BP_CORE_INTERR_TABLE_S;
 
@@ -44,16 +41,26 @@ BP_CORE_INTERR_TABLE_S *CORE_GetInterTable()
 	return &gstInterTable;
 }
 
-
-
-
 //注册一个软中断
 
 
 //销毁一个软中断
 
+#if 0
+#endif
 
-//注册一个mould,mould进行层级嵌套
+
+
+
+/* 业务总线 链表/数组*/
+//gstAppBus
+
+/* read/write/ioctl 参考linux */
+
+/* 驱动总线 链表/数组*/
+//gstDevBus
+
+
 
 
 

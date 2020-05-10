@@ -2,45 +2,26 @@
  * 通用平台定义
  */
 
+ 
+#ifndef _WH_DEF_H_
+#define _WH_DEF_H_
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 //根据模块加载
 
 #define WH_DELAY_ONCE       15     /* s,默认一次运行时长15秒 */
 #define WH_LP_TABLE_MAX     4
 #define WH_SUB_MOD_MAX      4
-#define WH_TIME_EVENT_MAX   5
+#define WH_TIME_EVENT_MAX   6     /* 最大定时器事件 */
 
 typedef U32 (*ModeClassMethod)();
-typedef U32 (*TimeEventProc)(U8 cmd, VOID *pArg);
-
-typedef enum tagTimeEventClassListType
-{
-	WH_TIME_ARRAY = 0, /* 数组 */
-	WH_TIME_LINKLIST,  /* 链表实现  */
-
-	WH_TIME_BUTT
-}WH_TIME_LISTTYPE_E;
-typedef struct tagTimeEventArryObj
-{
-	U32 u32Time;
-	U8 u8TimeId;
-	TimeEventProc FnProc; /* 回调处理函数 */
-}WH_TIME_EVENT_ARRY_OBJ_S;
-
-typedef struct tagTimeEventClass
-{
-	WH_TIME_LISTTYPE_E eType;
-	U8 u8NextIdle;         /* 记录下一个空闲位 */
-	WH_TIME_EVENT_ARRY_OBJ_S *pstHead;
-}WH_TIME_EVENT_CLASS_S;
-
-
-typedef struct tagTimeClass
-{
-    U32 u32UtcTm;   /* UTC时间 */
-	U8  u8H;
-	U8  u8M;
-	U8  u8S;
-}WH_TIME_S;
+typedef U32 (*TimeEventProc)();
+typedef VOID(*TowStateDevice)(char u8Id);
 
 typedef struct tagLpTable
 {
@@ -76,6 +57,14 @@ typedef enum tagWindHeatSettingMode
 	
 	WH_MODE_BUTT
 }WH_MODE_E;
+
+/* 二态器件方法 */
+typedef struct tagTowStateDeviceMethod
+{
+    TowStateDevice open;
+    TowStateDevice close;
+
+}WH_TSD_METHOD_S;
 
 
 /* 模式方法 */
@@ -121,5 +110,11 @@ typedef struct tagWindHeatContrlBlock
 
 //change mode 切换模式
 //
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
 
 
