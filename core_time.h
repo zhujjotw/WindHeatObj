@@ -7,6 +7,9 @@ extern "C"
 {
 #endif
 
+#define CORE_TIME_EVENT_MAX   6     /* 最大定时器事件 */
+#define DAY_TO_SECOND            (24 * 60 * 60)
+
 
 typedef enum tagTimeEventType
 {

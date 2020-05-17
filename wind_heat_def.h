@@ -17,17 +17,23 @@ extern "C"
 #define WH_DELAY_ONCE       15     /* s,默认一次运行时长15秒 */
 #define WH_LP_TABLE_MAX     4
 #define WH_SUB_MOD_MAX      4
-#define WH_TIME_EVENT_MAX   6     /* 最大定时器事件 */
 
-typedef U32 (*ModeClassMethod)();
-typedef U32 (*TimeEventProc)();
-typedef VOID(*TowStateDevice)(char u8Id);
+
+typedef U32 (*MODE_METHOD)();
+typedef VOID (*TM_EVENT_HNDL)();
 
 typedef struct tagLpTable
 {
 	U8 u8LpId;
 	WH_TIME_S stTime;
 }WH_LP_TABLE_S;
+
+enum
+{
+    PRESS_SHORT = 0,
+    PRESS_LONG,
+    PRESS_BUTT
+}
 
 typedef struct tagTimeTable
 {
@@ -58,21 +64,12 @@ typedef enum tagWindHeatSettingMode
 	WH_MODE_BUTT
 }WH_MODE_E;
 
-/* 二态器件方法 */
-typedef struct tagTowStateDeviceMethod
-{
-    TowStateDevice open;
-    TowStateDevice close;
-
-}WH_TSD_METHOD_S;
-
 
 /* 模式方法 */
-typedef struct tagModeClassMethod
+typedef struct tagMODE_METHOD
 {
-	ModeClassMethod LongPress;
-	ModeClassMethod ShortPress;
-	ModeClassMethod MainEvent;
+	MODE_METHOD pPress[PRESS_BUTT];
+	MODE_METHOD MainEvent;
 }WH_MODE_CLASS_METHOD_S;
 
 /* 主模式之间的切换 */
